@@ -2,3 +2,5 @@ services:
   cats-game:
     build: .
     restart: unless-stopped
+    ports:
+      - "8090:80"
