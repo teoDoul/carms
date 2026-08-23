@@ -9,7 +9,9 @@ let musicStarted = false
 function startMusic() {
     if (musicStarted) return
     musicStarted = true
-    play("bgm", { loop: true, volume: 0.5 })
+    audioCtx.resume().then(() => {
+        play("bgm", { loop: true, volume: 0.5 })
+    })
 }
 
 
@@ -175,14 +177,13 @@ const cats = [
     { num: "22", anim: "idle",  x: 31, y: 4  },
     { num: "23", anim: "idle",  x: 15, y: 10 },
 ]
-
 scene("menu", () => {
     add([rect(width(), height()), fixed(), color(40, 80, 40)])
 
     add([
-        text("mao!", { font: "edu", size: 48 }),
+        text("mao!", { font: "edu", size: 64 }),
         anchor("center"),
-        pos(width() / 2, height() / 2 - 80),
+        pos(width() / 2, height() / 2 - 100),
         fixed(),
         color(255, 255, 255),
     ])
@@ -202,14 +203,23 @@ scene("menu", () => {
         anchor("center"),
         color(0, 0, 0),
     ])
-    
+
+    add([
+        text("Tip: press and hold", { font: "edu", size: 18 }),
+        anchor("center"),
+        pos(width() / 2, height() / 2 + 90),
+        fixed(),
+        color(230, 230, 230),
+    ])
+
     playBtn.onClick(() => {
-    startMusic()
-    go("game")
+        startMusic()
+        go("game")
     })
     playBtn.onHover(() => playBtn.color = rgb(140, 220, 140))
     playBtn.onHoverEnd(() => playBtn.color = rgb(120, 200, 120))
 })
+
 
 scene("game", () => {
     setCamScale(CAM_SCALE)
