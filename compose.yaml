@@ -1,0 +1,4 @@
+services:
+  cats-game:
+    build: .
+    restart: unless-stopped
